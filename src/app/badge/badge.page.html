@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Support</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-template #badgeTemplate let-badges="badges">
+    <ion-item button *ngFor="let p of badges" detail="false" (click)="purchase(p)">
+      <ion-icon [class]="p.id === 'badge_gold' ? 'gold' : p.id === 'badge_silver' ? 'silver' : 'bronze'" slot="start" name="medal-outline">
+      </ion-icon>
+      <ion-label class="ion-text-wrap">
+        {{ p.title }}
+        <p>{{ p.description }}</p>
+      </ion-label>
+      <ion-button slot="end">
+        {{ p.price }}
+      </ion-button>
+    </ion-item>
+  </ng-template>
+
+  <ion-text *ngIf="!badge.id">
+    <p class="max-w-lg mx-auto p-2 my-8">
+      Hello! We could put an ad here, but we chose not to because ads suck. In the same time, keeping
+      this app on App Store costs money. So if you can, please make a purchase to sustain it.
+    </p>
+  </ion-text>
+
+  <ion-list *ngIf="!badge.id && webView" class="max-w-lg mx-auto">
+    <ng-template *ngTemplateOutlet="badgeTemplate; context: {badges: badges} "></ng-template>
+  </ion-list>
+
+  <ion-list *ngIf="!badge.id && !webView" class="max-w-lg mx-auto">
+    <ng-template *ngTemplateOutlet="badgeTemplate; context: {badges: fakeBadges} "></ng-template>
+  </ion-list>
+
+  <ion-row *ngIf="loading" class="flex justify-center items-center my-8">
+    <ion-spinner name="circles"></ion-spinner>
+    <ion-label class="m-4">Hang on a sec...</ion-label>
+  </ion-row>
+
+  <ion-card class="max-w-xs mx-auto" *ngIf="badge.id">
+    <ion-card-header class="flex items-center justify-center flex-col space-y-4">
+      <ion-card-title class="flex items-center space-x-2"  [class]="badge.id === 'badge_gold' ? 'gold' : badge.id === 'badge_silver' ? 'silver' : 'bronze'">
+        <ion-icon name="medal-outline"></ion-icon>
+        <ion-text>
+          {{ badge.title }}
+        </ion-text>
+      </ion-card-title>
+      <ion-card-subtitle>{{ badge.description }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-text *ngIf="!loading" class="flex items-center justify-center my-8" [class]="badge.id ? 'opacity-20' : 'opacity-50'" (click)="restore()">
+    Restore purchase
+  </ion-text>
+</ion-content>

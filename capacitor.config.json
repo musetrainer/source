@@ -1,0 +1,6 @@
+{
+    "appId": "com.musetrainer",
+    "appName": "MuseTrainer",
+    "webDir": "www",
+    "bundledWebRuntime": false
+}

@@ -1,0 +1,217 @@
+$staff-0: rgb(209 213 219);
+$staff-1: rgb(14 165 233);
+$staff-1-lite: rgb(186 230 253);
+$staff-2: rgb(34 197 94);
+$staff-2-lite: rgb(187 247 208);
+$wrong: rgb(239 68 68);
+$mobile: 990px;
+
+ul {
+  height: 9em;
+  width: 100%;
+  margin: 0 auto 0.5em;
+  padding: 1em 0 0 1em;
+  position: relative;
+  border: 1px solid #160801;
+  border-radius: 1em;
+  background: linear-gradient(45deg, #222 0%, #555 100%);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5) inset, 0 1px rgba(212, 152, 125, 0.2) inset, 0 5px 15px rgba(0, 0, 0, 0.5);
+  @media only screen and (max-width: $mobile) {
+    height: 6em;
+    padding: 0.8em 0 0 0.8em;
+  }
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  float: left;
+}
+
+ul .white {
+  height: 8em;
+  width: 1.92%;
+  z-index: 1;
+  text-align: center;
+  line-height: 14em;
+  @media only screen and (max-width: $mobile) {
+    height: 5em;
+    line-height: 8em;
+  }
+}
+
+ul .white.unpressed {
+  border-left: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  border-radius: 0 0 5px 5px;
+  box-shadow: -1px 0 0 rgba(255, 255, 255, 0.8) inset, 0 0 5px #ccc inset, 0 0 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #eee 0%, #fff 100%);
+}
+
+ul .white.pressedkeep {
+  border-top: 1px solid #777;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1) inset,
+    -5px 5px 20px rgba(0, 0, 0, 0.2) inset, 0 0 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #ffffff 0%, $staff-0 100%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #ffffff 0%, $staff-1 25%, $staff-1 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #ffffff 0%, $staff-2 25%, $staff-2 100%);
+  }
+}
+
+ul .white.pressed {
+  border-top: 1px solid #777;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1) inset, -5px 5px 20px rgba(0, 0, 0, 0.2) inset, 0 0 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #ffffff 0%, $staff-0 50%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #ffffff 0%, $staff-1 25%, $staff-1 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #ffffff 0%, $staff-2 25%, $staff-2 100%);
+  }
+}
+
+ul .white.unpressedreq {
+  border-top: 1px solid #777;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1) inset, -5px 5px 20px rgba(0, 0, 0, 0.2) inset, 0 0 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #ffffff 0%, $staff-0 100%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #ffffff 50%, $staff-1-lite 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #ffffff 50%, $staff-2-lite 100%);
+  }
+}
+
+ul .white.pressedwrong {
+  border-top: 1px solid #777;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1) inset, -5px 5px 20px rgba(0, 0, 0, 0.2) inset, 0 0 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #ffffff 0%, $wrong 100%);
+}
+
+ul .white.pressedreq {
+  border-top: 1px solid #777;
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1) inset, -5px 5px 20px rgba(0, 0, 0, 0.2) inset, 0 0 3px rgba(0, 0, 0, 0.2);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #ffffff 50%, $staff-1-lite 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #ffffff 50%, $staff-2-lite 100%);
+  }
+}
+
+.black {
+  height: 4em;
+  width: 0.96%;
+  margin: 0 0 0 -0.48%;
+  z-index: 2;
+  border: 1px solid #000;
+  border-radius: 0 0 3px 3px;
+  text-align: center;
+  line-height: 6em;
+  color: white;
+  @media only screen and (max-width: $mobile) {
+    height: 2.5em;
+    line-height: 4em;
+  }
+}
+
+.black.unpressed {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -5px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 2px 4px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(45deg, #222 0%, #555 100%);
+}
+
+.black.pressedkeep {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #000000 0%, $staff-0 25%, $staff-0 100%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-1 25%, $staff-1 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-2 25%, $staff-2 100%);
+  }
+}
+
+.black.pressed {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #000000 0%, $staff-0 25%, $staff-0 100%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-1 25%, $staff-1 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-2 25%, $staff-2 100%);
+  }
+}
+
+.black.unpressedreq {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #000000 0%, $staff-0 100%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-1-lite 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-2-lite 100%);
+  }
+}
+
+.black.pressedwrong {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #000000 0%, $wrong 25%, $wrong 100%);
+}
+
+.black.pressedreq {
+  box-shadow: -1px -1px 2px rgba(255, 255, 255, 0.2) inset, 0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #222 0%, #555 100%);
+
+  &__staff1 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-1-lite 100%);
+  }
+
+  &__staff2 {
+    background: linear-gradient(to bottom, #000000 0%, $staff-2-lite 100%);
+  }
+}
+
+.a,
+.b,
+.d,
+.e,
+.g {
+  margin: 0 0 0 -0.48%;
+}
+
+ul li:first-child {
+  border-radius: 5px 0 5px 5px;
+}
+
+ul li:last-child {
+  border-radius: 0 5px 5px 5px;
+}

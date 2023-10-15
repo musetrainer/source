@@ -1,0 +1,21 @@
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom" [translucent]="true">
+    <ion-tab-button tab="home">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="badge" *ngIf="webView">
+      <ion-icon name="heart-circle-outline"></ion-icon>
+      <ion-label>Support</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="support" *ngIf="!webView">
+      <ion-icon name="heart-circle-outline"></ion-icon>
+      <ion-label>Support</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="help">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <ion-label>Help</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

@@ -1,0 +1,7 @@
+{
+  "name": "MuseTrainer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

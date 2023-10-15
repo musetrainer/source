@@ -1,0 +1,134 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="navCtrl.back()">
+        <ion-icon color="medium" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-row class="flex items-center justify-around text-sm">
+      <ion-col size="1" class="mr-8">
+        <ion-button color="dark" disabled="{{ !fileLoaded || !midiAvailable }}" size="small"
+          (click)="isPracticing() ? osmdStop() : startPractice()" class="flex items-center w-20">
+          <ion-icon [name]="isPracticing() ? 'stop-outline' : 'play-outline'" slot="start"></ion-icon>
+          <ion-text>
+            {{ isPracticing() ? 'STOP' : 'PLAY' }}
+          </ion-text>
+        </ion-button>
+      </ion-col>
+      <ion-col size="1">
+        <ion-button color="dark" disabled={{!fileLoaded}} size="small" (click)="isListening() ? osmdStop() : startListen()">
+          <ion-icon [name]="isListening() ? 'volume-mute-outline' : 'volume-high-outline'" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="mr-8" *ngIf="!isMobileLayout">
+        <ion-row class="flex items-center">
+          <ion-label class="mr-2">
+            Speed
+          </ion-label>
+          <ion-range [value]="speedValue" [min]="30" [max]="180" [step]="10" (ionChange)="onSpeedChange($event)"></ion-range>
+          <ion-label class="w-8 text-right opacity-80">
+            {{ speedFormatter(speedValue) }}
+          </ion-label>
+        </ion-row>
+      </ion-col>
+      <ion-col size="{{ isMobileLayout ? 4 : 3 }}">
+        <ion-row class="flex items-center">
+          <ion-label class="mr-2">
+            Range
+          </ion-label>
+          <ion-select interface="popover" [value]="inputMeasure.lower" [disabled]="running"
+            [interfaceOptions]="{subHeader: 'From measure'}" (ionChange)="updateLowerMeasure($event.target.value)">
+            <ion-select-option *ngFor="let m of listMeasure()" [value]="m">{{ m }}</ion-select-option>
+          </ion-select>
+          <ion-select interface="popover" [value]="inputMeasure.upper" [disabled]="running"
+            [interfaceOptions]="{subHeader: 'To measure'}" (ionChange)="updateUpperMeasure($event.target.value)">
+            <ion-select-option *ngFor="let m of listMeasure()" [value]="m">{{ m }}</ion-select-option>
+          </ion-select>
+        </ion-row>
+      </ion-col>
+      <ion-col size="3">
+        <ion-row class="flex items-center">
+          <ion-label class="mr-2">
+            Repeat
+          </ion-label>
+          <ion-toggle [(ngModel)]="checkboxRepeat" (ionChange)="updateRepeat()"
+            color="dark" [enableOnOffLabels]="true" [disabled]="running"></ion-toggle>
+          <ion-label class="w-8 text-right opacity-80" *ngIf="checkboxRepeat">
+            {{repeatValue}}x
+          </ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-buttons slot="end">
+      <ion-menu-button type="reset">
+        <ion-icon name="settings-outline" color="medium"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" id="play-content" class="flex items-center justify-center">
+  <ion-refresher slot="fixed" (ionRefresh)="refreshMidiDevices($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row *ngIf="fileLoadError" class="flex justify-center items-center my-8">
+    <ion-label color="danger">
+      Error loading file
+    </ion-label>
+  </ion-row>
+  <ion-row *ngIf="!fileLoaded && !fileLoadError" class="flex justify-center items-center my-8">
+    <ion-spinner name="circles"></ion-spinner>
+    <ion-label class="m-4">Preparing your masterpiece...</ion-label>
+  </ion-row>
+  <ion-row style="background-color: white;" id="osmdContainer"></ion-row>
+</ion-content>
+
+
+<ion-footer class="ion-no-border">
+  <app-piano-keyboard *ngIf="checkboxKeyboard"></app-piano-keyboard>
+</ion-footer>
+
+<ion-menu contentId="play-content" side="end">
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-title>Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="m-4">
+    <ion-item >
+      <ion-label>MIDI input</ion-label>
+      <ion-text slot="end" color="{{ !midiAvailable && 'danger' }}">{{ midiDevice }}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label color="dark">Listen on MIDI</ion-label>
+      <ion-toggle [disabled]="running || !midiAvailable" [(ngModel)]="checkboxMidiOut"  color="dark" slot="end" [enableOnOffLabels]="true"></ion-toggle>
+    </ion-item>
+    <ion-list>
+      <ion-item *ngFor="let id of staffIdList">
+        <ion-label color="dark">Staff {{ id+1 }}</ion-label>
+        <ion-toggle [disabled]="running || !fileLoaded" [(ngModel)]="staffIdEnabled[id]" color="dark" slot="end" [enableOnOffLabels]="true"></ion-toggle>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label color="dark">Show feedback</ion-label>
+      <ion-toggle [(ngModel)]="checkboxFeedback" color="dark" slot="end" [enableOnOffLabels]="true"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label color="dark">Show keyboard</ion-label>
+      <ion-toggle [(ngModel)]="checkboxKeyboard" color="dark" slot="end" [enableOnOffLabels]="true"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="isMobileLayout">
+      <ion-label color="dark">
+        {{ speedFormatter(speedValue) }}
+      </ion-label>
+      <ion-range slot="end" [value]="speedValue" [min]="30" [max]="180" [step]="10" (ionChange)="onSpeedChange($event)"></ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-label><p>Build version</p></ion-label>
+      <ion-label slot="end"><p>{{ playVersion }}</p></ion-label>
+    </ion-item>
+  </ion-content>
+</ion-menu>
