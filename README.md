@@ -1,6 +1,6 @@
 # MuseTrainer
 
-Source code of https://musetrainer.com.
+Source code of https://musetrainer.github.io.
 
 ## Status
 
